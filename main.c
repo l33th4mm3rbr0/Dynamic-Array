@@ -38,7 +38,7 @@ int main(int argc, char* argv[])
 			else
 				printf("cannot remove inexisting value\n");
 			break;
-		case 's':
+		case 's': //show the stored values
 			showValues(values, number_of_values);
 			break;
 		}
@@ -79,18 +79,18 @@ int* addValue(int* valuesList, int* number_of_values, int value)
 
 int* removeValue(int* valuesList, int* number_of_values, int value_to_remove)
 {
-	int* newList = malloc(sizeof(int) * (*number_of_values - 1));
+	*number_of_values -= 1;
+	int* newList = malloc(sizeof(int) * (*number_of_values));
 	for (int i = 0;i < *number_of_values;i++)
 	{
 		if (i < value_to_remove)
 			newList[i] = valuesList[i];
-		else if (i > value_to_remove)
-			newList[i - 1] = valuesList[i];
+		else
+			newList[i] = valuesList[i+1];
 	}
 	printf("removed value: %d\n", valuesList[value_to_remove]);
 	if (valuesList)
 		free(valuesList);
-	*number_of_values -= 1;
-
+	
 	return newList;
 }
